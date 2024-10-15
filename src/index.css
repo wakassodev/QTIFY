@@ -1,48 +1,47 @@
-/* The :root selector in CSS is a pseudo-class that represents the highest-level parent element, which is usually the <html> element. 
-It is commonly used to define global CSS variables (custom properties) that can be reused throughout the stylesheet. */
 :root {
-  --color-primary: #34c94b;
-  --color-white: #ffffff;
-  --color-black: #121212;
+  --css-primary: #34c94b;
+  --css-black : #121212;
+  --css-white : #fff;
 }
 
-/*   The * selector is a universal selector that targets all elements on the page. Pseudo-elements in CSS are used to style parts of an element or create additional content. They are denoted by the :: syntax
-Adding *::before and *::after extends the selection to include their respective pseudo-elements. */
-*,
-*::before,
-*::after {
+/* Reset some default browser styles */
+html, body, h1, h2, h3, p, ul, ol, li, dl, dt, dd, blockquote, figure, fieldset, legend {
+  margin: 0;
+  padding: 0;
+  background: var(--css-black);
+  color: var(--css-white);
+  font-family: Poppins;
+}
+
+/* Remove default list styles */
+ul, ol {
+  list-style: none;
+}
+
+/* Set the base font size and line height */
+html {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Ensure images are not scaled beyond their natural size */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Remove underline from links and make them blue by default */
+a {
+  text-decoration: none;
+  color: #0073e6;
+}
+
+/* Apply a basic box-sizing to all elements for consistent sizing */
+*, *::before, *::after {
   box-sizing: border-box;
 }
-/* refer INTV-1 NOTES */
-
-* {
-  margin: 0;
-}
-
-html,body {
-  height: 100%;
-}
 
 
-body {
-  background-color: var(--color-black);   /*now use above 3 theme colours as a variable in whole project's css*/
-  color: var(--color-white);
-  font-family: 'Poppins', sans-serif;
-  line-height: 1.5;
-  overflow-x: hidden;
-}
-
-img,svg{
-  display: block;
-  /* align-items: center; */
-  max-width: 100%;
-  /* margin: 5px; */
-}
-
-/* 
-overwrite the default css of the swiper-slide provided by swiper
-by default -> width: 100%;
- */
-.swiper-slide{
-  width: auto !important;
-}
+/* .css-bnc8dt {
+  display: none;
+} */
