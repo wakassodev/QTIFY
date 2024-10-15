@@ -1,47 +1,72 @@
-:root {
-  --css-primary: #34c94b;
-  --css-black : #121212;
-  --css-white : #fff;
+root {
+  --color-primary: #34c94b;
+  --color-black: #121212;
+  --color-white: #ffffff;
 }
 
-/* Reset some default browser styles */
-html, body, h1, h2, h3, p, ul, ol, li, dl, dt, dd, blockquote, figure, fieldset, legend {
-  margin: 0;
-  padding: 0;
-  background: var(--css-black);
-  color: var(--css-white);
-  font-family: Poppins;
-}
-
-/* Remove default list styles */
-ul, ol {
-  list-style: none;
-}
-
-/* Set the base font size and line height */
-html {
-  font-size: 16px;
-  line-height: 1.5;
-}
-
-/* Ensure images are not scaled beyond their natural size */
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-/* Remove underline from links and make them blue by default */
-a {
-  text-decoration: none;
-  color: #0073e6;
-}
-
-/* Apply a basic box-sizing to all elements for consistent sizing */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
+* {
+  margin: 0;
+}
 
-/* .css-bnc8dt {
-  display: none;
-} */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  background-color: #121212;
+  color: #FFFFFF;
+  overflow-x: hidden;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+#root,
+#__next {
+  isolation: isolate;
+}
+
+.swiper-slide{
+  width: auto !important;
+}
+
+a,
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none;
+  color: inherit;
+}

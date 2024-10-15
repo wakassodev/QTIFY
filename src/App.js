@@ -1,38 +1,77 @@
-import React, { useState } from 'react';
-import './App.css';
-import FeedbackForm from './Components/FeedbackForm/FeedbackForm';
-import Home from './Pages/Home/Home';
-import Navbar from './Components/Navbar/Navbar';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import CurrentAlbum from './Pages/CurrentAlbum/CurrentAlbum';
+// import React, { useEffect, useState } from "react";
+// import Navbar from "./components/Navbar/Navbar";
+// import { StyledEngineProvider } from "@mui/material";
+// import { Outlet } from "react-router-dom";
+// import { fetchNewAlbums, fetchSongs, fetchTopAlbums } from "./components/API/API";
+
+// function App() {
+
+//   const [searchData, useSearchData] = useState();
+//   const [data, setData] = useState({});
+
+//   const generateData = (key, source) => {
+//     source().then(data => {
+//       setData((prevData) => {
+//         return {...prevData, [key]: data};
+//       })
+//     })
+//   }
+
+//   useEffect(() => {
+//     generateData("topAlbums", fetchTopAlbums);
+//     generateData("newAlbums", fetchNewAlbums);
+//     generateData("songs", fetchSongs);
+//   },[]);
+
+//   const {topAlbums = [], newAlbums = [], songs = []} = data;
+
+//   return (
+//     <StyledEngineProvider injectFirst>
+//       <Navbar searchData={[...topAlbums, ...newAlbums]}/>
+//       <Outlet context={{data: {topAlbums, newAlbums, songs}}}/>
+//     </StyledEngineProvider>
+//   );
+// }
+
+// export default App;
+import React, { useEffect, useState } from "react";
+import Navbar from "./components/Navbar/Navbar";
+import { StyledEngineProvider } from "@mui/material";
+import { Outlet } from "react-router-dom";
+import { fetchNewAlbums, fetchSongs, fetchTopAlbums } from "./components/API/API";
 
 function App() {
-  const [displayForm, setDisplayForm] = useState(false);
+  const [data, setData] = useState({});
+  const [loading, setLoading] = useState(true);
 
-  const handleFormSubmit = () => {
-    // Perform your form submission logic here
-
-    // Once the form is submitted successfully, set displayForm to false
-    setDisplayForm(false);
+  const generateData = (key, source) => {
+    source()
+      .then(data => {
+        setData(prevData => ({ ...prevData, [key]: data }));
+      })
+      .catch(error => {
+        console.error(`Error fetching ${key}:`, error);
+      })
+      .finally(() => setLoading(false));
   };
 
-  const toggleFeedbackForm = () => {
-    setDisplayForm(!displayForm);
-  };
+  useEffect(() => {
+    generateData("topAlbums", fetchTopAlbums);
+    generateData("newAlbums", fetchNewAlbums);
+    generateData("songs", fetchSongs);
+  }, []);
+
+  const { topAlbums = [], newAlbums = [], songs = [] } = data || {};
 
   return (
-    <div>
-      <Navbar onFeedbackButtonClick={toggleFeedbackForm} />
-      <FeedbackForm displayForm={displayForm} onSubmit={handleFormSubmit} />
-      
-      <BrowserRouter>
-        <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route path="/music/:albumId" element={<CurrentAlbum />} />
-        </Routes>
-      </BrowserRouter>
-      
-    </div>
+    <StyledEngineProvider injectFirst>
+      <Navbar searchData={[...topAlbums, ...newAlbums]} />
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <Outlet context={{ data: { topAlbums, newAlbums, songs } }} />
+      )}
+    </StyledEngineProvider>
   );
 }
 
