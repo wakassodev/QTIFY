@@ -7,11 +7,13 @@ import Logo from '../../Images/Logo'
 const Navbar = ({ onFeedbackButtonClick }) => {
     return (
         <div className='navbar'>
-            <div className='logo'><Logo/></div>
+            <div className='logo' data-testid="logo"><Logo/></div>
             <div>
                 <Searchbar />
             </div>
-            <div className='feedback'><Feedback onFeedbackButtonClick={onFeedbackButtonClick}/></div>
+            <div className='feedback'>
+                <Feedback onFeedbackButtonClick={onFeedbackButtonClick}/>
+            </div>
         </div>
     )
 }
